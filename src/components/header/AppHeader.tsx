@@ -1,10 +1,12 @@
-import { Bell, Globe } from "lucide-react";
+import { Bell, Globe, ChevronLeft } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 interface AppHeaderProps {
   title?: string;
   showNotification?: boolean;
   showLanguage?: boolean;
+  showBack?: boolean;
   notificationCount?: number;
 }
 
@@ -12,18 +14,31 @@ const AppHeader = ({
   title = "Krishi Profit",
   showNotification = true,
   showLanguage = true,
+  showBack = false,
   notificationCount = 0,
 }: AppHeaderProps) => {
+  const navigate = useNavigate();
+
   return (
     <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
-            <span className="text-xl">🌾</span>
-          </div>
+          {showBack ? (
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={() => navigate(-1)}
+              className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center"
+            >
+              <ChevronLeft className="w-5 h-5 text-foreground" />
+            </motion.button>
+          ) : (
+            <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
+              <span className="text-xl">🌾</span>
+            </div>
+          )}
           <div>
             <h1 className="font-bold text-lg text-foreground">{title}</h1>
-            <p className="text-xs text-muted-foreground">Waste to Wealth</p>
+            {!showBack && <p className="text-xs text-muted-foreground">Waste to Wealth</p>}
           </div>
         </div>
 
