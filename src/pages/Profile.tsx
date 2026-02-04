@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   BadgeCheck,
   MapPin,
@@ -30,25 +31,31 @@ const menuItems = [
     icon: <FileText className="w-5 h-5" />,
     label: "Order History",
     subtitle: "View past transactions",
+    link: "/orders",
   },
   {
     icon: <Wallet className="w-5 h-5" />,
     label: "Payment Settings",
     subtitle: "Bank account & UPI",
+    link: undefined,
   },
   {
     icon: <HelpCircle className="w-5 h-5" />,
     label: "Help & Support",
     subtitle: "FAQs and contact",
+    link: undefined,
   },
   {
     icon: <Settings className="w-5 h-5" />,
     label: "Settings",
     subtitle: "Notifications & language",
+    link: "/settings",
   },
 ];
 
 const Profile = () => {
+  const navigate = useNavigate();
+  
   return (
     <MobileLayout>
       <AppHeader title="Profile" />
@@ -155,6 +162,7 @@ const Profile = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 + index * 0.05 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() => item.link && navigate(item.link)}
               className="w-full bg-card rounded-xl p-4 border border-border flex items-center gap-3 text-left"
             >
               <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-muted-foreground">
